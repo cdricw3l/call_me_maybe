@@ -6,15 +6,18 @@ readme = "README.md"
 authors = [
     { name = "cedric", email = "cdricw3l@gmail.com" }
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
-    "flake8>=7.3.0",
-    "huggingface-hub>=1.31.0",
-    "mypy>=2.3.1",
+    "llm-sdk",
+    "numpy>=2.2.6",
     "pydantic>=2.13.5",
-    "torch>=2.14.0",
-    "transformers>=5.17.0",
 ]
+
+[tool.uv.sources]
+llm-sdk = { workspace = true }
+
+[tool.uv.workspace]
+members = ["llm_sdk"]
 
 [project.scripts]
 call-me = "call_me:main"
