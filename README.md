@@ -10,5 +10,13 @@
 
 # Ressources
 
+
+## UV
+
 * https://docs.astral.sh/uv/pip/environments/
 * https://docs.astral.sh/uv/guides/integration/pytorch/
+
+## Calling tool
+
+CS 329Z: 
+* https://www.youtube.com/watch?v=s0S38lz6O7M

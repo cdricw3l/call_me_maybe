@@ -1,59 +1,37 @@
 import sys
-import os
-from pathlib import Path
+import init
 import llm_sdk
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError, Field
 
 
-def check_path(path: str) -> bool :
-    if (os.path.exists(path)):
-        return (True)
-    return (False)
+class Parsing(BaseModel):
+  # Field(..., alias="...") permet d'associer le flag au nom de la variable
+  functions_definition: str = Field(..., alias="--functions_definition")
+  input_path: str = Field(..., alias="--input")
+  output_path: str = Field(..., alias="--output")
 
-class WRONG_PATH(Exception):
-    """ exception raised when input path doesn't existe """ 
-    message:str
-    def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
-
-class PATH:
-
-    input_definition: str
-    input_calling: str
-    output: str
-    def __init__(self,
-                 input_definition: str = "data/input/functions_definition.json",
-                 input_calling: str = "data/input/function_calling_tests.json",
-                 output: str = "data/output/function_calls.json"):
-        if check_path(input_definition) is False:
-            raise WRONG_PATH(f"input file {input_definition} doesn't exist")
-        elif check_path(input_calling) is False:
-            raise WRONG_PATH(f"input file {input_calling} doesn't exist")
-        if check_path(output) is False:
-            try:
-                path: Path = Path(output)
-                path.parent.mkdir(parents=True,exist_ok=True)
-                path.touch(exist_ok=True)
-                # 0o -> base octal. à approfondir
-                path.chmod(0o660)
-            except Exception as e:
-                raise WRONG_PATH(f"output file {output} error: {e}")
-        self.input_definition = input_definition
-        self.input_calling = input_calling
-        self.output = output
-        
 
 def main() -> None:
     pass
 
+def get_arguments_obj(argv: list[str]) -> dict[str]:
+    """ convert an argument list to  dictionnary """
+    obj: dict[str] = {argv[1]:argv[2],argv[3]:argv[4],argv[5]:argv[6]}
+    return obj
 
-    
-    
+
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         try:
-            paths: PATH = PATH()
-        except WRONG_PATH as e:
+            paths: init.PATH = init.PATH()
+        except init.WRONG_PATH as e:
             print(e)
-
+            exit(1)
+    elif len(sys.argv) == 7:
+        p : dict[str] = get_arguments_obj(sys.argv)
+        try:
+            Parsing.model_validate(p)
+        except ValidationError as e:
+            print(f"modele non validé {e}")
+    else:
+        print("Argument error")
