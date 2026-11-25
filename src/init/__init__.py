@@ -1,1 +1,0 @@
-from .initialisation import PATH, WRONG_PATH
