@@ -5,8 +5,8 @@ from cli import PATH, WRONG_PATH
 if __name__ == "__main__":
     argv: list[str] = sys.argv
     try:
-        cl: Cli = check_argument_validity(argv[1:])
-        p: PATH = PATH(cl)
-        print(p)
+        flags: Cli = check_argument_validity(argv[1:])
+        paths: PATH = PATH(flags)
+        print(paths)
     except (Bad_argument, WRONG_PATH) as e:
         print(e)

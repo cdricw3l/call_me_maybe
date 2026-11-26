@@ -9,7 +9,7 @@ run:
 	uv run python -m src
 
 run_wf:
-	@uv run python -m src --functions_definition data/input/functions_definition.json --input data/input/function_calling_tests.json --output data/output/function_calls.json
+	uv run python -m src --functions_definition data/input/functions_definition.json --input data/input/function_calling_tests.json --output data/output/function_calls.json
 
 debug:
 	uv run python -m pdb src/__main__.py
@@ -17,8 +17,11 @@ debug:
 test:
 	pytest test
 
+draft:
+	python3 draft/draft.py
+
 clean:
-	find .   -type d  \( -name ".mypy_cache" -o -name "__pycache__" \) ! -path $(VENV) -exec rm -rf {} +
+	find .   -type d  \( -name ".mypy_cache" -o -name "__pycache__" -o -name ".pytest_cache" \) ! -path $(VENV) -exec rm -rf {} +
 
 fclean: clean
 	rm -rf $(VENV)
@@ -31,4 +34,4 @@ lint-strict:
 	-flake8 . --extend-exclude $(VENV),llm_sdk
 	mypy . --exclude llm_sdk --strict
 
-.PHONY: test
+.PHONY: test draft
