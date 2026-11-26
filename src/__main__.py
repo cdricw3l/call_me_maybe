@@ -1,12 +1,11 @@
 import sys
-import argument_parsing
-import llm_sdk
-
+from cli import Cli, Bad_argument, check_argument_validity
 
 if __name__ == "__main__":
+    argv: list[str] = sys.argv
     try:
-        argument_parsing.check_argument_validity(sys.argv)
-        print("Argument Valide !")
-    except argument_parsing.Bad_argument as e:
+        a: Cli = check_argument_validity(argv)
+        print(a)
+    except Bad_argument as e:
         print(e)
-   
+    
