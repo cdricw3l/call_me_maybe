@@ -8,4 +8,3 @@ if __name__ == "__main__":
         print(a)
     except Bad_argument as e:
         print(e)
-    
