@@ -40,7 +40,7 @@ def get_arguments_obj(argv: list[str]) -> dict[str, str]:
                     }
         case 6:
             args = {
-                        argv[0]: argv[2],
+                        argv[0]: argv[1],
                         argv[2]: argv[3],
                         argv[4]: argv[5]
                     }
@@ -57,7 +57,6 @@ def check_argument_validity(argv: list[str]) -> Cli:
     try:
         args: dict[str, str] = get_arguments_obj(argv)
         cli: Cli = Cli.model_validate(args)
-        print("argument are valide")
     except ValidationError:
         raise Bad_argument
     return cli

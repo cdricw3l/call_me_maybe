@@ -1,4 +1,5 @@
 import os
+import cli
 from pathlib import Path
 
 class WRONG_PATH(Exception):
@@ -17,29 +18,26 @@ def check_path(path: str) -> bool :
 class PATH:
     """ this class check and create a path object with input and output file informations """
 
-    input_definition: str
-    input_calling: str
-    output: str
-    def __init__(self,
-                 input_definition: str = "data/input/functions_definition.json",
-                 input_calling: str = "data/input/function_calling_tests.json",
-                 output: str = "data/output/function_calls.json"):
-        if check_path(input_definition) is False:
-            raise WRONG_PATH(f"input file {input_definition} doesn't exist")
-        elif check_path(input_calling) is False:
-            raise WRONG_PATH(f"input file {input_calling} doesn't exist")
-        if check_path(output) is False:
+    definition_path: str
+    input_path: str
+    output_path: str
+    def __init__(self, cli: cli.Cli):
+        if check_path(cli.input_path) is False:
+            raise WRONG_PATH(f"input file {cli.input_path} doesn't exist")
+        elif check_path(cli.input_path) is False:
+            raise WRONG_PATH(f"input file {cli.input_path} doesn't exist")
+        if check_path(cli.output_path) is False:
             try:
-                path: Path = Path(output)
+                path: Path = Path(cli.output_path)
                 path.parent.mkdir(parents=True,exist_ok=True)
                 path.touch(exist_ok=True)
                 # 0o -> base octal. à approfondir
                 path.chmod(0o660)
             except Exception as e:
-                raise WRONG_PATH(f"output file {output} error: {e}")
-        self.input_definition = input_definition
-        self.input_calling = input_calling
-        self.output = output
+                raise WRONG_PATH(f"output file {cli.output_path} error: {e}")
+        self.definition_path = cli.functions_definition
+        self.input_path = cli.input_path
+        self.output_path = cli.functions_definition
 
     def __str__(self):
-        return(f"input_definition: {self.input_definition:>10}\ninput_calling: {self.input_calling:>10}\noutput:{self.output:>10}")
+        return(f"definition_path: {self.definition_path:>10}\ninput_path: {self.input_path:>10}\noutput_path:{self.output_path:>10}")
