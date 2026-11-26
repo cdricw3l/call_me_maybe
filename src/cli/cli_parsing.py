@@ -5,7 +5,7 @@ OUTPUT_DEFAULT_PATH = "data/output/"
 
 class Bad_argument(Exception):
      """Exception raised for wrong programme arguments."""
-     def __init__(self):
+     def __init__(self) -> None:
          super().__init__("Invalide programme arguments.") # enrichire potentiellement le message avec un format d'argument valide
 
 
@@ -31,7 +31,7 @@ def get_arguments_obj(argv: list[str]) -> dict[str, str]:
     return args
 
 
-def check_argument_validity(argv: list[str]) -> Cli:
+def check_argument_validity(argv: list[str]) -> Cli | ValidationError:
     try:
         args : dict[str, str] = get_arguments_obj(argv)
         cli: Cli = Cli.model_validate(args)
@@ -39,3 +39,7 @@ def check_argument_validity(argv: list[str]) -> Cli:
     except ValidationError as e:
         raise Bad_argument
     return cli
+
+
+
+
