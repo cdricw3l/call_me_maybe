@@ -22,6 +22,6 @@ def test_cli_parsing():
 
     argv_5: list[str] = ["--functions_definition", "data/input/functions_definition.json", "--input", "data/input/function_calling_tests.json", "--output"]
 
-
+    
 
     
