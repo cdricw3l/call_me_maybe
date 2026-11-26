@@ -14,6 +14,9 @@ run_wf:
 debug:
 	uv run python -m pdb src/__main__.py
 
+test:
+	pytest test
+
 clean:
 	find .   -type d  \( -name ".mypy_cache" -o -name "__pycache__" \) ! -path $(VENV) -exec rm -rf {} +
 
@@ -27,3 +30,5 @@ lint:
 lint-strict:
 	-flake8 . --extend-exclude $(VENV),llm_sdk
 	mypy . --exclude llm_sdk --strict
+
+.PHONY: test
