@@ -41,7 +41,12 @@ uv run python -m s --functions_definition  --output path_2 --input path_3
 * https://docs.astral.sh/uv/pip/environments/
 * https://docs.astral.sh/uv/guides/integration/pytorch/
 
-##transformer
+## pytest
+
+https://docs.pytest.org/en/stable/how-to/usage.html
+
+
+## transformer
 https://sebastianraschka.com/llm-architecture-gallery/
 https://jalammar.github.io/illustrated-transformer/
 

@@ -11,6 +11,7 @@ dependencies = [
     "llm-sdk",
     "numpy>=2.2.6",
     "pydantic>=2.13.5",
+    "pytest>=9.2.0",
 ]
 
 [tool.uv.sources]
@@ -25,3 +26,8 @@ call-me = "call_me:main"
 [build-system]
 requires = ["uv_build>=0.12.1,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]

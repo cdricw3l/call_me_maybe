@@ -20,18 +20,18 @@ def get_arguments_obj(argv: list[str]) -> dict[str, str]:
     """ convert an argument list to  dictionnary """
     args: dict[str, str] = {}
     match len(argv):
-        case 3:
-            args = {argv[1]:argv[2], "--input":INPUT_DEFAULT_PATH, "--output":OUTPUT_DEFAULT_PATH}
-        case 5:
-            args = {argv[1]:argv[2], argv[3]:argv[4], "--output":OUTPUT_DEFAULT_PATH}
-        case 7:
-            args = {argv[1]:argv[2], argv[3]:argv[4], argv[5]:argv[6]}
+        case 2:
+            args = {argv[0]:argv[1], "--input":INPUT_DEFAULT_PATH, "--output":OUTPUT_DEFAULT_PATH}
+        case 4:
+            args = {argv[0]:argv[1], argv[2]:argv[3], "--output":OUTPUT_DEFAULT_PATH}
+        case 6:
+            args = {argv[0]:argv[2], argv[2]:argv[3], argv[4]:argv[5]}
         case _:
             raise Bad_argument
     return args
 
 
-def check_argument_validity(argv: list[str]) -> Cli | ValidationError:
+def check_argument_validity(argv: list[str]) -> Cli :
     try:
         args : dict[str, str] = get_arguments_obj(argv)
         cli: Cli = Cli.model_validate(args)
@@ -39,7 +39,6 @@ def check_argument_validity(argv: list[str]) -> Cli | ValidationError:
     except ValidationError as e:
         raise Bad_argument
     return cli
-
 
 
 
