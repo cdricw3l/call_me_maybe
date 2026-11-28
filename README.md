@@ -31,7 +31,20 @@ uv run python -m s --functions_definition path_1 --output path_2 --input
 uv run python -m s --functions_definition  --output path_2 --input path_3
 
 ```
+## softmax
 
+La fonction get_logits_from_input_ids(list[int]) retourne la list des logit avant aplication de la formule softmax
+Nous devons appliquer un masquage sur les token considerer comme interdit (passage à zéro) puis appliquer la fonction softmax:
+
+### formula
+
+$$
+\text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+$$
+
+Calculer l'exponentiel pour chaque element z de la suite de logit puis diviser par la somme de toute les exponetiel de la suite de logit
+
+Exponentiel: **$f(x) = e^x$** ou **$e$** est une constante mathematique de valeur 2,71828 apeller nombre d'Euler ou constante de Néper
 
 # Ressources
 
@@ -50,7 +63,9 @@ https://docs.pytest.org/en/stable/how-to/usage.html
 https://sebastianraschka.com/llm-architecture-gallery/
 https://jalammar.github.io/illustrated-transformer/
 
-## Calling tool
+## Calling tool constrained decoding
+
+https://www.aidancooper.co.uk/constrained-decoding/
 
 ### BNF grammar
 
